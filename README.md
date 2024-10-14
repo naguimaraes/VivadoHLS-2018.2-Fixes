@@ -6,10 +6,11 @@ This repository contains a step-by-step guide to fix some issues that we've foun
 
 - [[APCC 202-10] and [APCC 202-1]](#error-apcc-202-10-clang-compile-failed-child-process-exited-abnormally-and-error-apcc-202-1-processsources-failed--apcc-failed)
 - [[IMPL 213-28]](#error-impl-213-28-failed-to-generate-ip)
+- [BFD: Please report this bug](#bfd-please-report-this-bug)
 
 ## ERROR: [APCC 202-10] clang compile failed: child process exited abnormally and ERROR: [APCC 202-1] ProcessSources failed / APCC failed
 
-Those error were found during the HLS Lab 1, Step 4: RTL Verification. It is related to a problem in the Clang compiler. The error message shown in console will be something like this:
+Those error were found during the HLS tutorial in Chapter 2, Lab 1, Step 4: `RTL Verification`. It is related to a problem in the Clang compiler. The error message shown in console will be something like this:
 
 ```bash
 In file included from /usr/include/math.h:43:
@@ -37,7 +38,7 @@ ERROR: [APCC 202-1] APCC failed.
 
 ## ERROR: [IMPL 213-28] Failed to generate IP
 
-This error was found during the HLS Lab 1, Step 5: IP Creation. It is related to a problem in the way they export the IP: using the current date, after 2022, will cause an overflow that will make the IP generation fail. The error message shown in console will be something like this:
+This error was found during the HLS tutorial in Chapter 2, Lab 1, Step 5: `IP Creation`. It is related to a problem in the way they export the IP: using the current date, after 2022, will cause an overflow that will make the IP generation fail. The error message shown in console will be something like this:
 
 ```bash
 source run_ippack.tcl -notrace
@@ -56,3 +57,30 @@ ERROR: [IMPL 213-28] Failed to generate IP.
 - Xilinx/AMD is already aware of this issue and released a patch to fix it, that can be found [here](https://adaptivesupport.amd.com/s/article/76960?language=en_US).
 
 - Just follow the instructions in the README found inside the patch folder. But pay attention to a small datail: it is written in the README `Note: While extracting this patch on Windows, make sure the destination folder does not contain the zip file name (y2k22_patch-1.2). EX: If the installation root is C:\Xilinx make sure after the extraction y2k22_patch folder is under C:\Xilinx, i.e : C:\Xilinx\y2k22_patch` but this is also true for Linux systems. So, take care to extract the patch in a folder that does not contain the zip file name.
+
+## BFD: Please report this bug
+
+This error was found during the HLS tutorial in Chapter 3, Lab 1, Step 3: `Run the C Debugger`. It is related to a problem in the way the debugger is trying to load the shared library symbols. The error message shown in console will be something like this:
+
+```bash
+warning: Could not load shared library symbols for linux-vdso.so.1.
+Do you need "set solib-search-path" or "set sysroot"?
+BFD: BFD (GNU Binutils) 2.24.51.20140729 internal error, aborting at ../../../src/lnx64/bfd/elf64-x86-64.c line 5334 in elf_x86_64_plt_sym_val
+
+BFD: Please report this bug.
+```
+
+### Solution
+
+- Go to **Window -> Preferences**. In the opened window, go to **C/C++ -> Debug -> GDB**. In the **GDB debugger** field, add the following line: `/usr/bin/gdb`.
+![Window](https://prnt.sc/ZzBszOYYX-m8)
+![GDB](https://prnt.sc/Veh2giKewglC)
+
+- As a result, the following error may show up:
+![EA](https://prnt.sc/tN0b-jFVj0Pa)
+
+- To solve this new error, follow this steps:
+    1. Open your .bashrc file with `nano ~/.bashrc`;
+    2. Add the following line to the end of the file: `export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libstdc++.so.6`;
+    3. Save the file and run `source ~/.bashrc`.
+`
