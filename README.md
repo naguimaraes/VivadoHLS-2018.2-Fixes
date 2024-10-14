@@ -73,14 +73,13 @@ BFD: Please report this bug.
 ### Solution
 
 - Go to **Window -> Preferences**. In the opened window, go to **C/C++ -> Debug -> GDB**. In the **GDB debugger** field, add the following line: `/usr/bin/gdb`.
-![Window](https://prnt.sc/ZzBszOYYX-m8)
-![GDB](https://prnt.sc/Veh2giKewglC)
+    1. ![Window](https://media.discordapp.net/attachments/1046502604546523136/1295491196239741038/image.png?ex=670ed7b2&is=670d8632&hm=4a591ca9ced2dddce1d1e830b56fc018147c1be26494135e70084321ffaf21a2&=&format=webp&quality=lossless)
+    2. ![GDB](https://media.discordapp.net/attachments/1046502604546523136/1295491288728211620/image.png?ex=670ed7c8&is=670d8648&hm=d2d7987c0064685af446684f241873c12d33a5dfc7dac9a0baafe9748d471847&=&format=webp&quality=lossless)
 
 - As a result, the following error may show up:
-![EA](https://prnt.sc/tN0b-jFVj0Pa)
+![EA](https://media.discordapp.net/attachments/1046502604546523136/1295490991557443704/image.png?ex=670ed781&is=670d8601&hm=e75da8fa64314c9512a71e1275e13097e846448348386e55b1131ef6acd43177&=&format=webp&quality=lossless)
 
 - To solve this new error, follow this steps:
     1. Open your .bashrc file with `nano ~/.bashrc`;
     2. Add the following line to the end of the file: `export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libstdc++.so.6`;
     3. Save the file and run `source ~/.bashrc`.
-`
